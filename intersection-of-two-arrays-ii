@@ -1,0 +1,24 @@
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> hs = new HashMap<Integer, Integer>();
+        List<Integer> res = new ArrayList<>();
+        int k = 0;
+        for(int i : nums1)
+        {
+            var n = hs.get(i);
+            if(n == null)
+                hs.put(i, 1);
+            else
+                hs.put(i, ++n);
+        }
+        for(int i : nums2)
+        {
+            if(hs.containsKey(i) && hs.get(i) > 0)
+            {
+                res.add(i);
+                hs.put(i, hs.get(i)-1);
+            }
+        }
+        return res.stream().mapToInt(Integer::intValue).toArray();
+    }
+}
